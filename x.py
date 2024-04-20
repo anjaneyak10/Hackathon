@@ -35,7 +35,7 @@ def get_contracts_from_single_page(url):
         json_file.write(", ")
 
 def get_urls_from_main_page():
-    for i in range(1,12):
+    for i in range(12,20):
         url = f"https://www.defense.gov/News/Contracts/?Page={i}"
         response = requests.get(url)
         if response.status_code == 200:

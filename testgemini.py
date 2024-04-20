@@ -37,22 +37,25 @@ def extract_and_convert_to_csv(additional_string, mixed_string, output_file):
         json_string = json_match.group(0)
 
         # Parse the JSON string
-        data = json.loads(json_string)
+        try:
+            data = json.loads(json_string)
 
-        # Flatten the nested JSON structure
-        flattened_data = flatten_dict(data)
+            # Flatten the nested JSON structure
+            flattened_data = flatten_dict(data)
 
-        # Convert flattened data to DataFrame
-        df = pd.DataFrame([flattened_data])
+            # Convert flattened data to DataFrame
+            df = pd.DataFrame([flattened_data])
 
-        # Add additional string as the first column
-        df.insert(0, 'agency_name', additional_string)
+            # Add additional string as the first column
+            df.insert(0, 'agency_name', additional_string)
 
-        # Append DataFrame to CSV file
-        if os.path.exists(output_file):
-            df.to_csv(output_file, mode='a', index=False, header=False)
-        else:
-            df.to_csv(output_file, index=False)
+            # Append DataFrame to CSV file
+            if os.path.exists(output_file):
+                df.to_csv(output_file, mode='a', index=False, header=False)
+            else:
+                df.to_csv(output_file, index=False)
+        except:
+            print("Failed to parse JSON data.")
 
     else:
         print("No JSON data found in the string.")
