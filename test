@@ -1,0 +1,43 @@
+import openai
+
+# Set your OpenAI API key
+openai.api_key = 'your-api-key'
+
+# Define the text to analyze
+text = "Lockheed Martin Rotary and Mission Systems, Owego, New York, was awarded a $88,380,255 Captains of Industry contract for the overhaul of B-2 digital receiver and legacy defense message system."
+
+# Send a request to the OpenAI API for named entity recognition
+response = openai.Completion.create(
+  engine="text-davinci-003",
+  prompt=text,
+  max_tokens=100,
+  n=1,
+  stop=None,
+  temperature=0
+)
+
+# Parse the response to extract the data values
+organization = ""
+location = ""
+cost = ""
+purpose = ""
+
+# Extract entities from the response
+for entity in response['choices'][0]['document']['entities']:
+    if entity['type'] == 'Organization':
+        organization = entity['text']
+    elif entity['type'] == 'Location':
+        location = entity['text']
+    elif entity['type'] == 'Money':
+        cost = entity['value']
+
+# Extract the purpose from the text
+# Assuming the purpose follows the format "for the [purpose]"
+purpose_start_index = text.find("for the") + len("for the")
+purpose = text[purpose_start_index:].strip()
+
+# Print the extracted information
+print("Contractor Name:", organization)
+print("Location:", location)
+print("Cost:", cost)
+print("Purpose:", purpose)
