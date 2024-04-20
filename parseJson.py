@@ -9,4 +9,3 @@ for parsed_data_each_page in parsed_data:
         print(f"Agency: {agency}")
         for contract in contracts:
             print(f"Contract: {contract}")
-        print()

@@ -69,13 +69,10 @@ def clean_data(data):
     while right>-len(data) and data[right] != '}':
         right-=1
     return data[left:right+1]
-
-for parsed_data_each_page in parsed_data:
-    for agency,contracts in parsed_data_each_page.items():
-        for contract in contracts:
-            data = gemini_data_extraction(contract)
-            data = clean_data(data)
-            print(data)
-            extract_and_convert_to_csv(agency,data, "data.csv")
-            # generate_csv(data,agency)
-            print()
+def generate_csv():
+    for parsed_data_each_page in parsed_data:
+        for agency,contracts in parsed_data_each_page.items():
+            for contract in contracts:
+                data = gemini_data_extraction(contract)
+                data = clean_data(data)
+                extract_and_convert_to_csv(agency,data, "data.csv")
