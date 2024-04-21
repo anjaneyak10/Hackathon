@@ -1,23 +1,7 @@
-import google.generativeai as genai
-import json
-import csv
 import re
 import pandas as pd
 import os
-
-def gemini_data_extraction(text):
-    your_api_key = "AIzaSyDUwAn805A5NZY4fUrQSyUOmFDrv5KjtO8"
-    genai.configure(api_key=your_api_key)
-    model = genai.GenerativeModel('gemini-pro')
-    query = "give me json format - do not generate new data- who is the contractor? what is the location? what is the cost? what is the purpose? WHhen will the work be completed? where will the work be performed? What is the contract number? Give me the contracting activity?"
-    response = model.generate_content(text+query)
-    generated_text= ""
-    if response :
-        generated_text = response.text
-    return generated_text
-
-with open('contracts.json', 'r') as file:
-    parsed_data = json.load(file)
+import json
 
 def extract_and_convert_to_csv(additional_string, mixed_string, output_file):
     # Function to flatten nested dictionaries
@@ -69,10 +53,4 @@ def clean_data(data):
     while right>-len(data) and data[right] != '}':
         right-=1
     return data[left:right+1]
-def generate_csv():
-    for parsed_data_each_page in parsed_data:
-        for agency,contracts in parsed_data_each_page.items():
-            for contract in contracts:
-                data = gemini_data_extraction(contract)
-                data = clean_data(data)
-                extract_and_convert_to_csv(agency,data, "data.csv")
+
