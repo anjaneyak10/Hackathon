@@ -75,6 +75,7 @@ agency_name,contractor,location,cost,purpose,completion_date,work_location,contr
   <img src='images\dashboard.jpeg' />
 </p>
 
-## Contributing
-
-Contributions are welcome! If you find any issues or have suggestions for improvement, please open an issue or submit a pull request.
+## Contributors
+1. Anjaneya Ketkar
+2. Jayesh Pamnani
+3. Janesh Hasija
